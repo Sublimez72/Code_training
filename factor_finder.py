@@ -1,9 +1,9 @@
 import json
 from math import isqrt
 import argparse
-from nis import cat
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(
+    description="Supply the program with a number and it will tell you if it's a prime number or not")
 parser.add_argument("path", nargs="?")
 args = parser.parse_args()
 
