@@ -1,5 +1,7 @@
 import random
 
+# Simulates a number of sessions of the 100 prisoners riddle and calculates the strategys winrate
+
 
 def box_setup():
     global papers

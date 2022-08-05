@@ -1,5 +1,7 @@
 import random
 
+# Play rock paper scissors against the computer
+
 
 def tutorial():
     print()

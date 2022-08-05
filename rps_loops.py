@@ -1,5 +1,6 @@
 import random
 
+# Simulates a number of games of rock paper scissors and calculates the winrate
 
 player1_wins = 0
 player2_wins = 0
