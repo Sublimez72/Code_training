@@ -1,7 +1,7 @@
 import random
 
 
-money = 1000
+money = 1000.0
 
 
 class Blackjack():
@@ -174,7 +174,7 @@ def main():
         Blackjack.deck_shuffle()
         Blackjack.deal_first_2()
         print(f"Money = ${money}")
-        bet = int(input("How much do you want to bet?: "))
+        bet = float(input("How much do you want to bet?: "))
         if bet > money:
             print("You don't have that much money!")
             continue

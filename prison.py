@@ -1,6 +1,7 @@
 import random
 
-# Simulates a number of sessions of the 100 prisoners riddle and calculates the strategys winrate
+# Simulates a number of sessions of the 100 prisoners riddle
+# and calculates the strategys winrate
 
 
 def box_setup():
@@ -30,17 +31,12 @@ def experiment(loops):
         for i in range(1, 101):
             x = 1
             openedBox = papers[i - 1]
-            #print("-" * 50)
-            #print("Prisoner number {0} is checking box number {0}".format(i))
-            #print("-" * 50)
 
             while x <= 50:
                 if openedBox == i:
-                    #print("Prisoner number {0} saw the paper {1} and it took them {2} tries".format(i, openedBox, x))
                     free_prisoners.append(i)
                     break
                 else:
-                    #print("Prisoner number {0} saw the paper {1}".format(i, openedBox))
                     openedBox = papers[openedBox - 1]
                 x += 1
             else:

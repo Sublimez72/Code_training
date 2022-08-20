@@ -13,7 +13,7 @@ class Car:
 
     def moveLeft():
         if Car.locationX < -9:
-            Car.locationX = 255
+            Car.locationX = 10
         else:
             Car.locationX -= 1
 
@@ -57,3 +57,5 @@ while True:
         Car.help()
     elif command.lower() == "q":
         break
+    else:
+        Car.help()
