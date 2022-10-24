@@ -85,7 +85,8 @@ if __name__ == "__main__":
             num = int(input("What number do you want to test?: "))
             print("1. Efficent Search (no factors)")
             print("2. Exhaustive Search (all factors)")
-            print("3. JSON Search (not 100% for numbers over 50 million)")
+            print("3. JSON Search (not 100% for numbers over 50 million but much faster)")
+            print("4. Quit")
             mode = int(input())
             if mode == 1:
                 print(efficentChecker(num))
@@ -96,5 +97,10 @@ if __name__ == "__main__":
                     print("You did not specify a JSON File!")
                 else:
                     print(jsonChecker(num))
+            elif mode == 4:
+                break
         except ValueError:
             print("Invalid choice!")
+            
+        except KeyboardInterrupt:
+            print("Type a number and at the next stage press 4 to quit.")
