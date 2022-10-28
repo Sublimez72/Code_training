@@ -104,13 +104,10 @@ if __name__ == "__main__":
                 else:
                     start_t = time.perf_counter()
                     print(jsonChecker(num))
-<<<<<<< HEAD
                     end_t = time.perf_counter()
                     print(f"Duration of search {end_t - start_t}")
-=======
             elif mode == 4:
                 break
->>>>>>> 7557260157ec6ec1a76b1791de8fbc309e153a52
         except ValueError:
             print("Invalid choice!")
             
