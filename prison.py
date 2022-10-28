@@ -1,4 +1,5 @@
 import random
+import time
 
 # Simulates a number of sessions of the 100 prisoners riddle
 # and calculates the strategys winrate
@@ -25,7 +26,7 @@ def experiment(loops):
     failed_experiments = 0
 
     for i in range(1, loops + 1):
-        print("{0} / {1}".format(i, loops))
+        #print("{0} / {1}".format(i, loops))
         box_setup()
 
         for i in range(1, 101):
@@ -61,4 +62,8 @@ def experiment(loops):
 
 
 loops = int(input("How many loops?: "))
+
+start_t = time.perf_counter()
 experiment(loops)
+end_t = time.perf_counter()
+print(f"Total duration {end_t - start_t}s")

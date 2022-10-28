@@ -1,6 +1,7 @@
 import json
 from math import isqrt
 import argparse
+import time
 
 parser = argparse.ArgumentParser(
     description="Supply the program with a number and it will tell you if it's a prime number or not")
@@ -35,7 +36,6 @@ def jsonChecker(num):
 
 def efficentChecker(num):
     factorsFound = False
-    print(num)
     if num == 0 or num == 1:
         return False
 
@@ -88,13 +88,22 @@ if __name__ == "__main__":
             print("3. JSON Search (not 100% for numbers over 50 million)")
             mode = int(input())
             if mode == 1:
+                start_t = time.perf_counter()
                 print(efficentChecker(num))
+                end_t = time.perf_counter()
+                print(f"Duration of search {end_t - start_t}")
             elif mode == 2:
+                start_t = time.perf_counter()
                 exhaustiveChecker(num)
+                end_t = time.perf_counter()
+                print(f"Duration of search {end_t - start_t}")
             elif mode == 3:
                 if args.path == None:
                     print("You did not specify a JSON File!")
                 else:
+                    start_t = time.perf_counter()
                     print(jsonChecker(num))
+                    end_t = time.perf_counter()
+                    print(f"Duration of search {end_t - start_t}")
         except ValueError:
             print("Invalid choice!")
