@@ -60,8 +60,8 @@ if __name__ == "__main__":
     start_t = time.perf_counter()
     with Pool() as p:
         result = p.map(experiment, range(1, loops + 1))
-        win_rate = (result.count(1) / len(result)) * 100
         end_t = time.perf_counter()
+        win_rate = (result.count(1) / len(result)) * 100
         print("Win rate:", win_rate)
         print(f"Total duration {end_t - start_t}s")
 
