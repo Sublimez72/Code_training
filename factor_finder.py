@@ -31,7 +31,7 @@ def jsonChecker(num):
 def efficentChecker(num):
     if num == 2:
         return True
-    
+
     elif num % 2 == 0:
         return False
 
@@ -99,6 +99,6 @@ if __name__ == "__main__":
                 break
         except ValueError:
             print("Invalid choice!")
-            
+
         except KeyboardInterrupt:
             print("Type a number and at the next stage press 4 to quit.")
