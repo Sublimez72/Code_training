@@ -5,25 +5,25 @@ class Cards():
 
     cards = []
 
-    def __init__(self, id: int) -> None:
+    def __init__(self, id: int, jack=11, queen=12, king=13, ace=14) -> None:
 
         if id == 11:
             self.name = "Jack"
-            self.id = 11
+            self.id = jack
         elif id == 12:
             self.name = "Queen"
-            self.id = 12
+            self.id = queen
         elif id == 13:
             self.name = "King"
-            self.id = 13
+            self.id = king
         elif id == 14:
             self.name = "Ace"
-            self.id = 14
+            self.id = ace
         else:
             self.name = id
             self.id = id
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         return f"{self.id}"
 
     def __add__(self, other: object) -> object:
@@ -45,13 +45,13 @@ class Cards():
         return self.id
 
     @staticmethod
-    def deck_builder() -> list:
+    def deck_builder(jack=11, queen=12, king=13, ace=14) -> list:
         Cards.cards = []
         for i in range(2, 15):
-            Cards.cards.append(Clubs(i))
-            Cards.cards.append(Hearts(i))
-            Cards.cards.append(Spades(i))
-            Cards.cards.append(Diamonds(i))
+            Cards.cards.append(Clubs(i, jack, queen, king, ace))
+            Cards.cards.append(Hearts(i, jack, queen, king, ace))
+            Cards.cards.append(Spades(i, jack, queen, king, ace))
+            Cards.cards.append(Diamonds(i, jack, queen, king, ace))
 
         random.shuffle(Cards.cards)
         return Cards.cards
@@ -62,41 +62,41 @@ class Cards():
 
 
 class Hearts(Cards):
-    def __init__(self, id) -> None:
-        super().__init__(id)
+    def __init__(self, id, jack=11, queen=12, king=13, ace=14) -> None:
+        super().__init__(id, jack, queen, king, ace)
         self.suit = "Hearts"
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         return f"{self.name} of {self.suit}"
 
 
 class Spades(Cards):
-    def __init__(self, id) -> None:
-        super().__init__(id)
+    def __init__(self, id, jack=11, queen=12, king=13, ace=14) -> None:
+        super().__init__(id, jack, queen, king, ace)
         self.suit = "Spades"
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         return f"{self.name} of {self.suit}"
 
 
 class Diamonds(Cards):
 
-    def __init__(self, id) -> None:
-        super().__init__(id)
+    def __init__(self, id, jack=11, queen=12, king=13, ace=14) -> None:
+        super().__init__(id, jack, queen, king, ace)
         self.suit = "Diamonds"
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         return f"{self.name} of {self.suit}"
 
 
 class Clubs(Cards):
-    def __init__(self, id) -> None:
-        super().__init__(id)
+    def __init__(self, id, jack=11, queen=12, king=13, ace=14) -> None:
+        super().__init__(id, jack, queen, king, ace)
         self.suit = "Clubs"
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         return f"{self.name} of {self.suit}"
 
 
 if __name__ == "__main__":
-    pass
+    deck = Cards.deck_builder(10, 10, 10, 11)
