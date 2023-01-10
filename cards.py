@@ -1,6 +1,7 @@
 import random
 
-
+# A class to create any card deck you want where the values of the court cards can be changed to suit your liking.
+# The static function Cards.deck_builder() returns a list of cards objects which acts as the deck of cards.
 class Cards():
 
     cards = []
