@@ -7,8 +7,8 @@ how_many_letters_wordle_game = 5
 
 
 # salet
-guess = "weeps"
-result = "wmwwm"
+guess = "reave"
+result = "wwmwc"
 
 
 def paths(path, save=bool):
