@@ -7,8 +7,8 @@ how_many_letters_wordle_game = 5
 
 
 # salet
-guess = "reave"
-result = "wwmwc"
+guess = "moola"
+result = "wcwmm"
 
 
 def paths(path, save=bool):
@@ -38,6 +38,9 @@ def trim(words, guess, result):
 
         for i in range(how_many_letters_wordle_game):
             if result[i] == "w" and guess[i] in word:
+                for z in range(how_many_letters_wordle_game):
+                    if result[i] == result[z] and z != i:
+                        break
                 words.remove(word)
                 break
 
