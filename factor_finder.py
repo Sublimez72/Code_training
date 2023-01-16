@@ -19,37 +19,26 @@ def jsonLoader():
 
 def jsonChecker(num):
 
-    factorsFound = False
-
     for i in primes:
         if num % i == 0 and num != i:
-            factorsFound = True
-            break
+            return False
         if i >= isqrt(num):
             break
 
-    if factorsFound == True:
-        return False
-    else:
-        return True
+    return True
 
 
 def efficentChecker(num):
-    factorsFound = False
-    if num == 0 or num == 1:
+    if num == 2:
+        return True
+
+    elif num % 2 == 0:
         return False
 
-    for i in range(isqrt(num) + 1):
-        try:
-            if num % i == 0 and i != 1:
-                factorsFound = True
-                break
+    for i in range(3, isqrt(num) + 1, 2):
+        if num % i == 0:
+            return False
 
-        except ZeroDivisionError:
-            pass
-
-    if factorsFound == True:
-        return False
     else:
         return True
 
@@ -110,6 +99,6 @@ if __name__ == "__main__":
                 break
         except ValueError:
             print("Invalid choice!")
-            
+
         except KeyboardInterrupt:
             print("Type a number and at the next stage press 4 to quit.")
