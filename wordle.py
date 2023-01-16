@@ -3,12 +3,12 @@ import os
 from sys import platform
 
 
-guess = "goose"
-result = "wcwcc"
+how_many_letters_wordle_game = 5
 
-cypher = {}
-for count, letter in enumerate(guess):
-    cypher[letter] = result[count]
+
+# salet
+guess = "weeps"
+result = "wmwwm"
 
 
 def paths(path, save=bool):
@@ -31,17 +31,27 @@ def paths(path, save=bool):
         return path
 
 
-def trim(words, cypher):
+def trim(words, guess, result):
 
-    for count, key in enumerate(cypher.keys()):
-        if cypher[key] == "w":
-            words = [word for word in words if key not in word]
+    temp_tuple = tuple(words)
+    for word in temp_tuple:
 
-        elif cypher[key] == "c":
-            words = [word for word in words if key == word[count]]
+        for i in range(how_many_letters_wordle_game):
+            if result[i] == "w" and guess[i] in word:
+                words.remove(word)
+                break
 
-        elif cypher[key] == "m":
-            words = [word for word in words if key in word and key != word[count]]
+            elif result[i] == "c" and guess[i] != word[i]:
+                words.remove(word)
+                break
+
+            elif result[i] == "m" and guess[i] not in word:
+                words.remove(word)
+                break
+
+            elif result[i] == "m" and guess[i] == word[i]:
+                words.remove(word)
+                break
 
     return words
 
@@ -55,12 +65,14 @@ if "wordle.json" in os.listdir():
 else:
     path = paths(path, False)
     words = open(path, "r").read().splitlines()
-    words = [s for s in words if len(s) == 5]
+    words = [s for s in words if len(s) == how_many_letters_wordle_game]
 
-words = trim(words, cypher)
+words = trim(words, guess, result)
+
 
 print(words)
 print(len(words))
+
 
 path = os.getcwd()
 path = paths(path, True)
