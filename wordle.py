@@ -3,7 +3,7 @@
 # The solver can unfortunatley not deal with words that contain duplicate letters.
 # That's why it will give you reccomended guesses that only have unique letters.
 
-
+# INSTRUCTIONS
 # When the program asks for a guess type in what you guessed in your wordle game.
 # When the program asks for result type in your result as one string.
 # For example. If you guessed the word salet and you got a
