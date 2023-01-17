@@ -63,7 +63,8 @@ for word in words:
         first_guesses.append(word)
         if c == 3:
             break
-print(f"Good first guesses:  {first_guesses}")
+print(f"Size of wordlist: {len(words)}")
+print(f"Possible first guesses:  {first_guesses}")
 
 while True:
     guess = input("Guess: ").lower()
