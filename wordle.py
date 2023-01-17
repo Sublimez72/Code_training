@@ -1,34 +1,29 @@
-import json
-import os
-from sys import platform
+# A pretty good wordle solver.
+
+# The solver can unfortunatley not deal with words that contain duplicate letters.
+# That's why it will give you reccomended guesses that only have unique letters.
 
 
+# When the program asks for a guess type in what you guessed in your wordle game.
+# When the program asks for result type in your result as one string.
+# For example. If you guessed the word salet and you got a
+# green s
+# gray a
+# gray l
+# yellow e
+# green t
+# you would type that as: gwwyg
+
+# green = g
+# yellow = y
+# gray = w
+
+# change this variable if you're playing a custom wordle game with a different number of letters
 how_many_letters_wordle_game = 5
 
 
-# salet
-guess = "moola"
-result = "wcwmm"
-
-
-def paths(path, save=bool):
-    if save:
-        if platform == "linux" or platform == "linux2":
-            path = path + "/wordle.json"
-        elif platform == "darwin":
-            path = path + "/wordle.json"
-        elif platform == "win32":
-            path = path + "\wordle.json"
-        return path
-
-    if not save:
-        if platform == "linux" or platform == "linux2":
-            path = path + "/words_alpha.txt"
-        elif platform == "darwin":
-            path = path + "/words_alpha.txt"
-        elif platform == "win32":
-            path = path + "\words_alpha.txt"
-        return path
+def has_duplicate_letters(word):
+    return len(set(word)) != len(word)
 
 
 def trim(words, guess, result):
@@ -41,40 +36,56 @@ def trim(words, guess, result):
                 words.remove(word)
                 break
 
-            elif result[i] == "c" and guess[i] != word[i]:
+            elif result[i] == "g" and guess[i] != word[i]:
                 words.remove(word)
                 break
 
-            elif result[i] == "m" and guess[i] not in word:
+            elif result[i] == "y" and guess[i] not in word:
                 words.remove(word)
                 break
 
-            elif result[i] == "m" and guess[i] == word[i]:
+            elif result[i] == "y" and guess[i] == word[i]:
                 words.remove(word)
                 break
 
     return words
 
 
-path = os.getcwd()
-if "wordle.json" in os.listdir():
-    path = paths(path, True)
-    with open(path, "r", encoding="utf-8") as f:
-        words = json.load(f)
+words = open("words_alpha.txt", "r").read().splitlines()
+words = [s for s in words if len(s) == how_many_letters_wordle_game]
 
-else:
-    path = paths(path, False)
-    words = open(path, "r").read().splitlines()
-    words = [s for s in words if len(s) == how_many_letters_wordle_game]
+first_guesses = []
+print("Reccomended first guess: salet")
+c = 0
+for word in words:
+    if not has_duplicate_letters(word):
+        c += 1
+        first_guesses.append(word)
+        if c == 3:
+            break
+print(f"Good first guesses:  {first_guesses}")
 
-words = trim(words, guess, result)
+while True:
+    guess = input("Guess: ").lower()
+    if has_duplicate_letters(guess):
+        continue
 
+    result = input("Result: ").lower()
+    if result == "ggggg":
+        break
+    elif result == "skip":
+        continue
 
-print(words)
-print(len(words))
+    print("")
+    words = trim(words, guess, result)
+    print(words)
+    print(len(words))
+    next_guess = []
+    for word in words:
+        if not has_duplicate_letters(word):
+            next_guess.append(word)
 
-
-path = os.getcwd()
-path = paths(path, True)
-with open(path, "w", encoding="utf-8") as f:
-    json.dump(words, f)
+    if len(next_guess) == 0:
+        print("No recommended guesses!")
+    else:
+        print(f"Next Guess? {next_guess}")
