@@ -80,6 +80,7 @@ while True:
     print("")
     words = trim(words, guess, result)
     print(words)
+    print()
     next_guess = []
     for word in words:
         if not has_duplicate_letters(word):
