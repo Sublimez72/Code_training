@@ -19,14 +19,14 @@
 # gray = w
 
 # change this variable if you're playing a custom wordle game with a different number of letters
-how_many_letters_wordle_game = 4
+how_many_letters_wordle_game = 6
 
 
 def has_duplicate_letters(word):
     return len(set(word)) != len(word)
 
 
-def trim(words, guess, result):
+def filter_word_list(words, guess, result):
 
     temp_tuple = tuple(words)
     for word in temp_tuple:
@@ -50,21 +50,43 @@ def trim(words, guess, result):
 
     return words
 
+# Line 56-81 was written by chatgpt
+
+
+def most_common_letters(words_list):
+    # Create an empty dictionary to store the letter counts
+    letter_count = {}
+    for word in words_list:
+        for letter in word:
+            if letter in letter_count:
+                letter_count[letter] += 1
+            else:
+                letter_count[letter] = 1
+
+    # Create a list of tuples to store the word and common letters count
+    common_letters_list = []
+    for word in words_list:
+        common_letters = 0
+        for letter in word:
+            if letter_count[letter] > 1:
+                common_letters += 1
+        common_letters_list.append((word, common_letters))
+    # filter the list that contain duplicate letters
+    common_letters_list = [
+        word for word in common_letters_list if not has_duplicate_letters(word[0])]
+    # Sort the list of tuples by common letters count in descending order
+    common_letters_list.sort(key=lambda x: x[1], reverse=True)
+
+    # Return the top three words
+    return [word[0] for word in common_letters_list[:3]]
+
 
 words = open("words_alpha.txt", "r").read().splitlines()
 words = [s for s in words if len(s) == how_many_letters_wordle_game]
 
-first_guesses = []
-print("Reccomended first guess: salet")
-c = 0
-for word in words:
-    if not has_duplicate_letters(word):
-        c += 1
-        first_guesses.append(word)
-        if c == 3:
-            break
+
 print(f"Size of wordlist: {len(words)}")
-print(f"Possible first guesses:  {first_guesses}")
+print(f"Possible first guesses:  {most_common_letters(words)}")
 
 while True:
     guess = input("Guess: ").lower()
@@ -77,17 +99,14 @@ while True:
     elif result == "skip":
         continue
 
-    print("")
-    words = trim(words, guess, result)
+    print()
+    words = filter_word_list(words, guess, result)
     print(words)
     print()
-    next_guess = []
-    for word in words:
-        if not has_duplicate_letters(word):
-            next_guess.append(word)
+    next_guess = most_common_letters(words)
 
     if len(next_guess) == 0:
         print("No recommended guesses!")
     else:
-        print(f"Next Guess? {next_guess}")
+        print(next_guess)
     print(len(words))
