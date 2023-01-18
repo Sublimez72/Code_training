@@ -19,7 +19,7 @@
 # gray = w
 
 # change this variable if you're playing a custom wordle game with a different number of letters
-how_many_letters_wordle_game = 5
+how_many_letters_wordle_game = 4
 
 
 def has_duplicate_letters(word):
@@ -80,7 +80,6 @@ while True:
     print("")
     words = trim(words, guess, result)
     print(words)
-    print(len(words))
     next_guess = []
     for word in words:
         if not has_duplicate_letters(word):
@@ -90,3 +89,4 @@ while True:
         print("No recommended guesses!")
     else:
         print(f"Next Guess? {next_guess}")
+    print(len(words))
