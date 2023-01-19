@@ -51,7 +51,6 @@ def filter_word_list(words, guess, result):
                 break
 
             elif result[i] == "g" and guess[i] != word[i]:
-                
                 count = 1
                 for z in range(how_many_letters_wordle_game):
                     if guess[i] + str(z) in temp_dict and temp_dict[guess[i]+str(z)] == "g":
@@ -59,7 +58,11 @@ def filter_word_list(words, guess, result):
                     
                 if word.count(guess[i]) != count:
                     words.remove(word)
-                break
+                    break
+                
+                elif word.count(guess[i]) == count and guess[i] != result[i]:
+                    words.remove(word)
+                    break
 
 
             elif result[i] == "y" and guess[i] not in word:
