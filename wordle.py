@@ -50,7 +50,7 @@ def filter_word_list(words, guess, result):
 
     return words
 
-# Line 56-81 was written by chatgpt with modifications by me
+# Line 56-82 was written by chatgpt with modifications by me
 
 
 def most_common_letters(words_list, dupe=bool):
