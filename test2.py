@@ -48,21 +48,21 @@ def filter_word_list(words, guess, result):
     for word in temp_tuple:
 
         for i in range(how_many_letters_wordle_game):
-
+            if word == "prester": print("1", i)
             if result[i] == "w" and guess[i] in word:
                 for z in range(how_many_letters_wordle_game):
                     if guess[i]+str(z) in temp_dict and temp_dict[guess[i]+str(z)] != "w" or temp_dict[guess[i]] != "w":
                         if word[i] == guess[i]:
-
+                            if word == "prester": print("w1", i)
                             words.remove(word)
                             break
                     elif guess[i] + str(z) not in temp_dict:
-
+                        if word == "prester": print("w2", i)
                         words.remove(word)
                         break
-
+                if word == "prester": print("break", i, guess[i], result[i], word[i])
                 break
-
+            if word == "prester": print("2", i)
             elif result[i] == "g" and guess[i] != word[i]:
                 count = 1
                 for z in range(how_many_letters_wordle_game):
@@ -70,21 +70,25 @@ def filter_word_list(words, guess, result):
                         count += 1
 
                 if word.count(guess[i]) != count:
+                    if word == "prester": print("g1", i)
                     words.remove(word)
                     break
 
                 elif word.count(guess[i]) == count and guess[i] != result[i]:
+                    if word == "prester": print("g2", i)
                     words.remove(word)
                     break
-
+            if word == "prester": print("3", i)
             elif result[i] == "y" and guess[i] not in word:
+                if word == "prester": print("y1", i)
                 words.remove(word)
                 break
-
+            if word == "prester": print("4", i)
             elif result[i] == "y" and guess[i] == word[i]:
+                if word == "prester": print("y2", i)
                 words.remove(word)
                 break
-
+            if word == "prester": print("5", i)
             elif result[i] == "y":
                 count = 1
                 for z in range(how_many_letters_wordle_game):
@@ -92,12 +96,15 @@ def filter_word_list(words, guess, result):
                         count += 1
 
                 if word.count(guess[i]) < count:
+                    if word == "prester": print("y3", i)
                     words.remove(word)
                     break
 
                 elif word.count(guess[i]) == count and guess[i] != result[i]:
+                    if word == "prester": print("y4", i)
                     words.remove(word)
                     break
+            if word == "prester": print("end", i)
     return words
 
 # Line 56-81 was written by chatgpt
