@@ -19,7 +19,7 @@
 # gray = w
 
 # change this variable if you're playing a custom wordle game with a different number of letters
-how_many_letters_wordle_game = 8
+how_many_letters_wordle_game = 5
 
 
 def has_duplicate_letters(word):
