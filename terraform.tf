@@ -1,8 +1,6 @@
 
 
 variable "password" {}
-variable "user_name" {}
-variable "tenant_name" {}
 
 
 terraform {
@@ -15,8 +13,8 @@ terraform {
 
 
 provider "openstack" {
-  user_name = var.user_name
-  tenant_name = var.tenant_name
+  user_name = "vangelis.baimboutzoglou@iths.se"
+  tenant_name = "iths-vangelisbaimboutzoglou"
   password = var.password
   auth_url = "https://ops.elastx.cloud:5000/v3"
 }
@@ -107,6 +105,6 @@ resource "openstack_compute_instance_v2" "lab2_webserver1" {
   }
 
   network {
-    name = "my_network"
+    name = "lab2_network"
   }
 }
