@@ -1,7 +1,5 @@
 # A pretty good wordle solver.
 
-# The solver can unfortunatley not deal with words that contain duplicate letters.
-# That's why it will give you reccomended guesses that only have unique letters.
 
 # INSTRUCTIONS
 # When the program asks for a guess type in what you guessed in your wordle game.
