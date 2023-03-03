@@ -1,6 +1,7 @@
 import wordle_puzzle
 
-
+iterations = 100
+number_of_letters = 7
 wins = 0
 losses = 0
 correct_words = []
@@ -28,7 +29,7 @@ def filter_word_list(words, guess, result):
     temp_tuple = tuple(words)
     for word in temp_tuple:
 
-        for i in range(5):
+        for i in range(number_of_letters):
             if result[i] == "w":
                 count_non_w_result = count_non_w(guess, result, i)
 
@@ -87,16 +88,21 @@ def most_common_letters(words_list, dupe=bool):
     return [word[0] for word in common_letters_list[:3]]
 
 
-def main(num):
+def main(iterations):
     global wins
     global losses
     global correct_words
     global incorrect_words
     global number_of_guesses
 
-    for _ in range(num):
-        words = open("wordle/words.txt", "r").read().splitlines()
-        wordle_puzzle.load()
+    for _ in range(iterations):
+        if number_of_letters == 5:
+            words = open("wordle/words.txt", "r").read().splitlines()
+            wordle_puzzle.load(5)
+        else:
+            words = open("wordle/words_alpha.txt", "r").read().splitlines()
+            words = [s for s in words if len(s) == number_of_letters]
+            wordle_puzzle.load(number_of_letters)
 
         for i in range(1, 7):
 
@@ -106,9 +112,8 @@ def main(num):
 
             guess = guess[0]
 
-            result = wordle_puzzle.eval_attempt(guess)
-
-            if result == "ggggg":
+            result = wordle_puzzle.eval_attempt(guess, number_of_letters)
+            if result == "g" * number_of_letters:
                 wins += 1
                 correct_words.append(guess)
                 number_of_guesses.append(i)
@@ -133,4 +138,4 @@ def main(num):
             sum(number_of_guesses) / len(number_of_guesses)))
 
 
-main(1000)
+main(iterations)

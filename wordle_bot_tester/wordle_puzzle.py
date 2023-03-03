@@ -1,15 +1,21 @@
 import random
 
 
-def load():
-    possible_words = open(
-        "wordle_bot_tester/possible_words.txt", "r").read().splitlines()
+def load(num=int):
+
+    if num == 5:
+        possible_words = open(
+            "wordle_bot_tester/possible_words.txt", "r").read().splitlines()
+    else:
+        possible_words = open("wordle/words_alpha.txt", "r").read().splitlines()
+        possible_words = [s for s in possible_words if len(s) == num]
+    
     global word
     word = random.choice(possible_words)
 
 
-def eval_attempt(guess):
-    result_list = [' '] * 5
+def eval_attempt(guess, num=int):
+    result_list = [' '] * num
     word_list = list(word)
     guess_list = list(guess)
 
