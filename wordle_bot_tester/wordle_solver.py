@@ -1,23 +1,11 @@
-# A pretty good wordle solver.
+import wordle_puzzle
 
 
-# INSTRUCTIONS
-# When the program asks for a guess type in what you guessed in your wordle game.
-# When the program asks for result type in your result as one string.
-# For example. If you guessed the word salet and you got a
-# green s
-# gray a
-# gray l
-# yellow e
-# green t
-# you would type that as: gwwyg
-
-# green = g
-# yellow = y
-# gray = w
-
-# change this variable if you're playing a custom wordle game with a different number of letters
-how_many_letters_wordle_game = 5
+wins = 0
+losses = 0
+correct_words = []
+incorrect_words = []
+number_of_guesses = []
 
 
 def has_duplicate_letters(word):
@@ -40,8 +28,7 @@ def filter_word_list(words, guess, result):
     temp_tuple = tuple(words)
     for word in temp_tuple:
 
-        for i in range(how_many_letters_wordle_game):
-
+        for i in range(5):
             if result[i] == "w":
                 count_non_w_result = count_non_w(guess, result, i)
 
@@ -68,9 +55,11 @@ def filter_word_list(words, guess, result):
 
     return words
 
+# Line 56-82 was written by chatgpt with modifications by me
+
 
 def most_common_letters(words_list, dupe=bool):
-
+    # Create an empty dictionary to store the letter counts
     letter_count = {}
     for word in words_list:
         for letter in word:
@@ -79,6 +68,7 @@ def most_common_letters(words_list, dupe=bool):
             else:
                 letter_count[letter] = 1
 
+    # Create a list of tuples to store the word and common letters count
     common_letters_list = []
     for word in words_list:
         common_letters = 0
@@ -86,59 +76,61 @@ def most_common_letters(words_list, dupe=bool):
             if letter_count[letter] > 1:
                 common_letters += letter_count[letter]
         common_letters_list.append((word, common_letters))
-
+    # filter the list that contain duplicate letters
     if dupe:
         common_letters_list = [
             word for word in common_letters_list if not has_duplicate_letters(word[0])]
-
+    # Sort the list of tuples by common letters count in descending order
     common_letters_list.sort(key=lambda x: x[1], reverse=True)
 
+    # Return the top three words
     return [word[0] for word in common_letters_list[:3]]
 
 
-wins = 0
-losses = 0
-while True:
-    if how_many_letters_wordle_game != 5:
-        words = open("wordle/words_alpha.txt", "r").read().splitlines()
-        words = [s for s in words if len(s) == how_many_letters_wordle_game]
-    else:
+def main(num):
+    global wins
+    global losses
+    global correct_words
+    global incorrect_words
+    global number_of_guesses
+
+    for _ in range(num):
         words = open("wordle/words.txt", "r").read().splitlines()
-    print()
-    print(f"Size of wordlist: {len(words)}")
-    print(f"Possible first guesses:  {most_common_letters(words, True)}")
+        wordle_puzzle.load()
 
-    while True:
-        guess = input("Guess: ").lower()
-        if guess == "a":
-            wins += 1
-            print("Total wins: ", wins)
-            print("Total losses:", losses)
-            print("Win rate: ", (wins / (wins+losses)) * 100)
-            break
-        elif guess == "b":
-            losses += 1
-            print("Total wins: ", wins)
-            print("Total losses:", losses)
-            print("Win rate: ", (wins / (wins+losses)) * 100)
-            break
-        elif guess == "c":
-            print("Total wins: ", wins)
-            print("Total losses:", losses)
-            print("Win rate: ", (wins / (wins+losses)) * 100)
-            exit()
-        result = input("Result: ").lower()
+        for i in range(1, 7):
 
-        print()
-        words = filter_word_list(words, guess, result)
-        print(words)
-        print()
-        next_guess = most_common_letters(words, True)
+            guess = most_common_letters(words, True)
+            if len(guess) == 0:
+                guess = most_common_letters(words, False)
 
-        if len(next_guess) == 0:
-            print("No good guesses!")
-            print("Try these instead")
-            print(most_common_letters(words, False))
+            guess = guess[0]
+
+            result = wordle_puzzle.eval_attempt(guess)
+
+            if result == "ggggg":
+                wins += 1
+                correct_words.append(guess)
+                number_of_guesses.append(i)
+                break
+
+            words = filter_word_list(words, guess, result)
         else:
-            print(next_guess)
-        print(len(words))
+            incorrect_words.append(wordle_puzzle.word)
+            losses += 1
+            number_of_guesses.append(i)
+
+    else:
+        print("Total wins: ", wins)
+        print("Total losses: ", losses)
+        print("Win rate: ", (wins / (wins + losses)) * 100)
+        print()
+        print("Correct words: ", correct_words)
+        print()
+        print("Incorrect words: ", incorrect_words)
+        print()
+        print("Average number of guesses: {0}".format(
+            sum(number_of_guesses) / len(number_of_guesses)))
+
+
+main(1000)
