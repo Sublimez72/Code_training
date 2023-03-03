@@ -1,7 +1,7 @@
 import wordle_puzzle
 
 iterations = 100
-number_of_letters = 7
+number_of_letters = 5
 wins = 0
 losses = 0
 correct_words = []
