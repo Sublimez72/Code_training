@@ -26,27 +26,47 @@ def has_duplicate_letters(word):
     return len(set(word)) != len(word)
 
 
+def count_non_w(guess, result, index):
+    letter = guess[index]
+    count = 0
+    for i, c in enumerate(result):
+        if i == index:
+            continue
+        if guess[i] == letter and c != 'w':
+            count += 1
+    return count
+
+
 def filter_word_list(words, guess, result):
 
     temp_tuple = tuple(words)
     for word in temp_tuple:
 
         for i in range(how_many_letters_wordle_game):
-            if result[i] == "w" and guess[i] in word:
-                words.remove(word)
-                break
+
+            if result[i] == "w":
+                count_non_w_result = count_non_w(guess, result, i)
+
+                if word.count(guess[i]) != count_non_w_result:
+                    words.remove(word)
+                    break
+                if word[i] == guess[i]:
+                    words.remove(word)
+                    break
 
             elif result[i] == "g" and guess[i] != word[i]:
                 words.remove(word)
                 break
 
-            elif result[i] == "y" and guess[i] not in word:
-                words.remove(word)
-                break
+            elif result[i] == "y":
+                count_non_w_result = count_non_w(guess, result, i) + 1
 
-            elif result[i] == "y" and guess[i] == word[i]:
-                words.remove(word)
-                break
+                if word.count(guess[i]) < count_non_w_result:
+                    words.remove(word)
+                    break
+                if word[i] == guess[i]:
+                    words.remove(word)
+                    break
 
     return words
 
@@ -74,7 +94,7 @@ def most_common_letters(words_list, dupe=bool):
     # filter the list that contain duplicate letters
     if dupe:
         common_letters_list = [
-        word for word in common_letters_list if not has_duplicate_letters(word[0])]
+            word for word in common_letters_list if not has_duplicate_letters(word[0])]
     # Sort the list of tuples by common letters count in descending order
     common_letters_list.sort(key=lambda x: x[1], reverse=True)
 
@@ -91,9 +111,6 @@ print(f"Possible first guesses:  {most_common_letters(words, True)}")
 
 while True:
     guess = input("Guess: ").lower()
-    if has_duplicate_letters(guess):
-        continue
-
     result = input("Result: ").lower()
     if result == "ggggg":
         break
