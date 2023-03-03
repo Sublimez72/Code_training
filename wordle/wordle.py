@@ -99,10 +99,11 @@ def most_common_letters(words_list, dupe=bool):
     # Return the top three words
     return [word[0] for word in common_letters_list[:3]]
 
-
-words = open("words_alpha.txt", "r").read().splitlines()
-words = [s for s in words if len(s) == how_many_letters_wordle_game]
-
+if how_many_letters_wordle_game != 5:
+    words = open("wordle/words_alpha.txt", "r").read().splitlines()
+    words = [s for s in words if len(s) == how_many_letters_wordle_game]
+else:
+    words = open("wordle/words.txt", "r").read().splitlines()
 
 print(f"Size of wordlist: {len(words)}")
 print(f"Possible first guesses:  {most_common_letters(words, True)}")
