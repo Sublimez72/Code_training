@@ -46,7 +46,7 @@ def efficentChecker(num):
 def exhaustiveChecker(num):
     factorsFound = False
     factors = []
-    for i in range(num):
+    for i in range(1, num + 1, 2):
         try:
             if num % i == 0 and i != 1:
                 factors.append(i)
@@ -58,8 +58,7 @@ def exhaustiveChecker(num):
 
     if factorsFound == True:
         print(num, "is not a prime, these are all it's factors: ")
-        for i in factors:
-            print(i)
+        print(factors)
     else:
         print(num, "is a prime! ")
 
